@@ -1,0 +1,14 @@
+########################
+# Common tools
+########################
+services:
+  node:
+    image: node:${NODE_VERSION}-alpine
+    user: node
+    working_dir: /app
+    volumes:
+      - ${PWD}:/app
+    profiles:                               # Avoid starting along with other containers when "compose up"
+      - tools
+
+

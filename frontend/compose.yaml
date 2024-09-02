@@ -1,0 +1,13 @@
+services:
+  frontend:
+    build:
+      context: ../
+      dockerfile: ./frontend/Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+        - NGINX_VERSION=${NGINX_VERSION}
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"

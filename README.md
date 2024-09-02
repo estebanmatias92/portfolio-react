@@ -4,7 +4,7 @@ For now it is only for testing purposes but it is a monorepo stack at the moment
 
 ### About the stack
 
-To read about the frontend service go [here](/frontend/README.md)
+To read about the frontend service go [here](/frontend/README.frontend.md)
 
 ### Instructions
 

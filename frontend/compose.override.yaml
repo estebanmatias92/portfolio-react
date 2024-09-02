@@ -36,7 +36,6 @@ services:
         - action: rebuild
           path: ./package.json
 
-
 ########################
 # Tools
 ########################
@@ -52,7 +51,7 @@ services:
     extends: 
       file: ../commons/compose.tooling.yaml
       service: node
-    command: ["sh", "-c", "npx create-vite . && npm install --include dev --verbose"]
+    command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only --include dev --verbose"]
 
 
 volumes:

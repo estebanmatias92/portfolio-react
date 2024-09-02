@@ -24,7 +24,7 @@ if [ "$1" == "deploy" ]; then
 
   if ! find_package_lock_json; then
     # Use this custom service create the frontend DEVELOPMENT stack
-    docker compose --rm run create-frontend
+    docker compose run --rm create-frontend
   fi
   
   # Start live-reload development server

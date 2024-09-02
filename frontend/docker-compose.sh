@@ -22,7 +22,7 @@ find_package_lock_json() {
 # Run dev server if the project was created, if not create the project
 if [ "$1" == "deploy" ]; then
 
-  if !find_package_lock_json; then
+  if ! find_package_lock_json; then
     # Use this custom service create the frontend DEVELOPMENT stack
     docker compose --rm run create-frontend
   fi

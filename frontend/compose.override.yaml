@@ -5,12 +5,12 @@ include:
 
 services:
   frontend:
-    init: true
     build: 
       context: ../
       dockerfile: ./frontend/Dockerfile.dev
       args: !override
         - NODE_VERSION=${NODE_VERSION}
+    init: true
     environment: 
       - PORT=${FRONTEND_PORT}
       - NODE_ENV=development
@@ -48,10 +48,11 @@ services:
     entrypoint: ["/usr/local/bin/npm"]
 
   create-frontend:
-    extends: 
-      file: ../commons/compose.tooling.yaml
-      service: node
-    command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only --include dev --verbose"]
+    extends: frontend 
+    init: false
+    ports: !reset null
+    command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only --include dev"]
+    develop: !reset null
 
 
 volumes:

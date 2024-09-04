@@ -1,25 +1,22 @@
-include:
-  - path:
-    - ../commons/compose.tooling.yaml
-
-
-services:
-  frontend:
-    build: 
+# YAML anchor with shared config 
+x-base-frontend: &base-frontend
+    build:
       context: ../
       dockerfile: ./frontend/Dockerfile.dev
       args: !override
         - NODE_VERSION=${NODE_VERSION}
-    init: true
-    environment: 
-      - PORT=${FRONTEND_PORT}
+    environment: !override
       - NODE_ENV=development
-    ports: !override
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      - PORT=${FRONTEND_PORT}
     volumes:
       - node_modules:/app/node_modules:rw
-    # profiles:
-    #   - dev
+
+services:
+  frontend:
+    <<: *base-frontend
+    init: true
+    ports: 
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     pull_policy: build
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "${FRONTEND_PORT}"]
     develop:
@@ -36,24 +33,12 @@ services:
         - action: rebuild
           path: ./package.json
 
-########################
-# Tools
-########################
-  npm:
-    extends: 
-      file: ../commons/compose.tooling.yaml
-      service: node
-    volumes:
-      - node_modules:/app/node_modules:rw
-    entrypoint: ["/usr/local/bin/npm"]
-
-  create-frontend:
-    extends: frontend 
-    init: false
-    ports: !reset null
-    command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only --include dev"]
-    develop: !reset null
-
+  # Bundler/Starter
+  create-frontend: 
+    <<: *base-frontend
+    command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only"]
+    profiles:
+      - tools
 
 volumes:
   node_modules:

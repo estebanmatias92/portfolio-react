@@ -3,9 +3,9 @@ services:
     build: &default-build
       context: ../
       dockerfile: ./frontend/Dockerfile.dev
-      args: !override 
-        NODE_VERSION: ${NODE_VERSION}
-    init: true                               # Need to run as PID 1 to handle os signals like SIGTERM to use Watch correctly
+      args:
+        - NODE_VERSION=${NODE_VERSION}      # Gives control and is expanded in the starter service
+    init: true                              # Need to run as PID 1 to handle os signals like SIGTERM to use Watch correctly
     environment: &default-environment
       NODE_ENV: development
     ports: 
@@ -32,15 +32,15 @@ services:
   create-frontend:
     build: 
       <<: *default-build
-      target: base
+      target: base                        # Special Docker build stage
     environment: *default-environment
-    volumes:
+    volumes:                              # It needs access to the service root dir
       - ./:/app
     # volumes_from: # Read volume explanation above
     #   - frontend:rw
     command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only"]
     profiles:
-      - tools
+      - starter
 
 volumes:
   node_modules:

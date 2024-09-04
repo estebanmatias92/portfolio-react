@@ -6,7 +6,7 @@ services:
       args:
         - NODE_VERSION=${NODE_VERSION}
         - NGINX_VERSION=${NGINX_VERSION}
-        - PROJECT_DIR=./frontend
+        - PROJECT_DIR=./frontend${FRONTEND_APP_DIR:+/$FRONTEND_APP_DIR}
     restart: unless-stopped
     environment:
       - NODE_ENV=production

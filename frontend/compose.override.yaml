@@ -17,7 +17,7 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./
+          path: ./${FRONTEND_APP_DIR}
           target: /app
           ignore:
             - node_modules/
@@ -26,7 +26,7 @@ services:
             - .*ignore
             - .env*
         - action: rebuild
-          path: ./package.json
+          path: ./${FRONTEND_APP_DIR}/package.json
 
   # Bundler/Starter
   create-frontend:
@@ -35,7 +35,7 @@ services:
       target: base                        # Special Docker build stage
     environment: *default-environment
     volumes:                              # It needs access to the service root dir
-      - ./:/app
+      - ./${FRONTEND_APP_DIR}:/app
     # volumes_from: # Read volume explanation above
     #   - frontend:rw
     command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only"]

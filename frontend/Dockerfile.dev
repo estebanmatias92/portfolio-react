@@ -1,7 +1,6 @@
 ARG NODE_VERSION=lts
 
-# Serve static files with hot-reload server
-FROM node:${NODE_VERSION} AS development
+FROM node:${NODE_VERSION} AS base
 
 ENV PORT=3000
 ENV NODE_ENV=development
@@ -10,6 +9,10 @@ ENV NODE_ENV=development
 USER node
 
 WORKDIR /app
+
+
+# Serve static files with hot-reload server
+FROM base AS development
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
@@ -27,3 +30,4 @@ COPY --chown=node:node ./frontend .
 EXPOSE ${PORT}
 
 CMD ["npm", "run", "dev"]
+

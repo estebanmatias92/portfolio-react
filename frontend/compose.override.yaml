@@ -1,22 +1,17 @@
-# YAML anchor with shared config 
-x-base-frontend: &base-frontend
+services:
+  frontend:
     build:
       context: ../
       dockerfile: ./frontend/Dockerfile.dev
       args: !override
         - NODE_VERSION=${NODE_VERSION}
-    environment: !override
-      - NODE_ENV=development
-      - PORT=${FRONTEND_PORT}
-    volumes:
-      - node_modules:/app/node_modules:rw
-
-services:
-  frontend:
-    <<: *base-frontend
     init: true
+    environment:
+      - NODE_ENV=development
     ports: 
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    volumes:
+      - node_modules:/app/node_modules:rw
     pull_policy: build
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "${FRONTEND_PORT}"]
     develop:
@@ -34,8 +29,18 @@ services:
           path: ./package.json
 
   # Bundler/Starter
-  create-frontend: 
-    <<: *base-frontend
+  create-frontend:
+    build:
+      context: ../
+      dockerfile: ./frontend/Dockerfile.dev
+      target: base
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - node_modules:/app/node_modules:rw
+      - ${PWD}:/app
     command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only"]
     profiles:
       - tools

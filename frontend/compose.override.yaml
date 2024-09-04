@@ -35,8 +35,8 @@ services:
       target: base
     environment: *default-environment
     volumes:
-      - ${PWD}:/app
-    # volumes_from: # Explanation above
+      - ./:/app
+    # volumes_from: # Read volume explanation above
     #   - frontend:rw
     command: ["sh", "-c", "npx create-vite . && npm install --package-lock-only"]
     profiles:

@@ -10,8 +10,8 @@ services:
       NODE_ENV: development
     ports: 
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-    volumes: # I dont need to share this if 'create-frontend' just generates package-lock.json
-      - node_modules:/app/node_modules
+    volumes:
+      - ./node_modules:/app/node_modules
     pull_policy: build
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "${FRONTEND_PORT}"]
     develop:
@@ -29,16 +29,24 @@ services:
           path: ./package.json
 
   # Bundler/Starter
-  create-frontend:
+  create:
     build: 
       <<: *default-build
       target: base                        # Special Docker build stage
     environment: *default-environment
     volumes:                              # It needs access to the service root dir
       - ./:/app
-    command: ["sh", "-c", "npx create-vite . && npm install"]
+    command: ["sh", "-c", "npx create-vite . && cd . && npm install"]
     profiles:
       - starter
 
-volumes:
-  node_modules:
+  npm:                                   # Wrap around npm to use it inside the container
+    build:
+      <<: *default-build
+      target: base
+    volumes:
+      - ./:/app
+    entrypoint: ["npm"]
+    command: ["--version"]
+    profiles:
+      - tooling

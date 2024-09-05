@@ -4,7 +4,7 @@ ARG NGINX_VERSION=stable
 # Build static files
 FROM node:${NODE_VERSION}-alpine AS builder
 
-ARG PROJECT_DIR
+ARG PROJECT_DIR=.
 
 ENV CI=true
 ENV NODE_ENV=production
@@ -14,13 +14,13 @@ USER node
 
 WORKDIR /app
 
-RUN --mount=type=bind,source=${PROJECT_DIR:+$PROJECT_DIR/}package.json,target=package.json \
-    --mount=type=bind,source=${PROJECT_DIR:+$PROJECT_DIR/}package-lock.json,target=package-lock.json \
+RUN --mount=type=bind,source=${PROJECT_DIR}/package.json,target=package.json \
+    --mount=type=bind,source=${PROJECT_DIR}/package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --include=dev
 
 # Copy the rest of the source files into the image.
-COPY --chown=node:node ${PROJECT_DIR:-.} .
+COPY --chown=node:node ${PROJECT_DIR} .
 
 RUN npm run build
 

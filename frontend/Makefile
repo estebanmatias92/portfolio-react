@@ -24,18 +24,17 @@ help:
 find_package_lock_json = find ./ -maxdepth 3 -name "package-lock.json" | grep -q "package-lock.json"
 
 # Target to create the project
-.PHONY: create-project
+.PHONY: create
 create:
-	@echo "Creating project..."
-	@docker compose run --rm create
+	@if ! $(find_package_lock_json); then \
+		echo "Creating project..."; \
+		docker compose run --rm create; \
+	fi
 
 # Target to start the development server
 .PHONY: dev
-dev:
+dev: create
 	@echo "Starting development server..."
-	@if ! $(find_package_lock_json); then \
-		docker compose run --rm create; \
-	fi
 	@docker compose up --watch
 
 # Target to run NPM commands inside Docker

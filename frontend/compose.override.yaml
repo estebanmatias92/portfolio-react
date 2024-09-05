@@ -36,8 +36,9 @@ services:
     environment: *default-environment
     volumes:                              # It needs access to the service root dir
       - ./:/app
-    volumes_from: # Read volume explanation above
-      - frontend
+      - node_modules:/app/node_modules
+    # volumes_from: # Read volume explanation above
+    #   - frontend:rw
     command: ["sh", "-c", "npx create-vite ${FRONTEND_APP_DIR:-.} && npm install ${FRONTEND_APP_DIR:+--prefix $FRONTEND_APP_DIR}"]
     profiles:
       - starter

@@ -15,7 +15,8 @@ function help() {
     echo "  create            Create the project"
     echo "  up                Start the development server"
     echo "  npm               Run NPM commands inside Docker"
-    echo "                    Run any Docker Compose command"  
+    echo "                    Run any Docker Compose command"
+    echo ""  
 }
 
 # Helper function to find package-lock.json

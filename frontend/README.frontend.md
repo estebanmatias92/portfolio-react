@@ -43,6 +43,8 @@ chmod +x ./dcompose
 
 # Create the development stack
 ./compose create
+
+# The project is created under 'web' directory
 ```
 
 #### 2. Deploying and working

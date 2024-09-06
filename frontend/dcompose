@@ -13,9 +13,9 @@ function help() {
     echo ""
     echo "Targets:"
     echo "  create            Create the project"
-    echo "  dev               Start the development server"
+    echo "  up                Start the development server"
     echo "  npm               Run NPM commands inside Docker"
-    echo "                    Any docker compose command"  
+    echo "                    Run any Docker Compose command"  
 }
 
 # Helper function to find package-lock.json
@@ -32,20 +32,15 @@ function create() {
 }
 
 # Target to start the development server
-function dev() {
+function up() {
     create
     echo "Starting development server..."
-    docker compose up --watch
+    docker compose up "$@"
 }
 
 # Target to run NPM commands inside Docker
 function npm() {
     docker compose run --rm npm "$@"
-}
-
-# Target to run custom Docker Compose commands
-function docker-compose() {
-  docker compose "$@"
 }
 
 # Main script logic
@@ -56,8 +51,9 @@ case "$1" in
     create)
         create
         ;;
-    dev)
-        dev
+    up)
+        shift
+        up "$@"
         ;;
     npm)
         shift
@@ -65,6 +61,6 @@ case "$1" in
         ;;
     *)
         shift
-        docker-compose "$@"
+        docker compose "$@"
         ;;
 esac

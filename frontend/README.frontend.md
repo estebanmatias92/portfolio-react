@@ -6,7 +6,7 @@ This stack uses vite as bundler and compose watch.
 
 ### See the yaml
 
-To see the stack environments settings
+To see the stack environments:
 
 * Check [compose.yaml](./compose.yaml) for _base_ / _prod_ config
 * Check [compose.override.yaml](./compose.override.yaml) for _dev_ / _test_ config
@@ -45,9 +45,9 @@ chmod +x ./dcompose
 ./dcompose create
 ```
 
-The project is created under 'web' directory
+The project is created under **'./web'** directory
 
-#### 2. Deploying and working
+### 2. Deploying and working
 
 Spin up a development stack and the server
 

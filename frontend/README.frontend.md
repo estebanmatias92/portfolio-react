@@ -1,71 +1,77 @@
-## Intro
+# Frontend Vite Stack
 
-### About the service
+## About the service
 
 This stack uses vite as bundler and compose watch.
 
-### Instructions
+### See the yaml
 
+To see the stack environments settings
 
-### Create the frontend
+* Check [compose.yaml](./compose.yaml) for _base_ / _prod_ config
+* Check [compose.override.yaml](./compose.override.yaml) for _dev_ / _test_ config
+
+## Instructions
+
+### Notes
+
+Running Docker Compose commands for this environment it is a hassle...
+
+```bash
+# Like getting the project created
+docker compose --env-file ../.env --env-file ../.env.dev.local run --rm create
+
+# Or starting up the development stack
+docker compose --env-file ../.env --env-file ../.env.dev.local up
+
+# Or simply installing a dependency
+docker compose --env-file ../.env --env-file ../.env.dev.local run --rm npm install prettier
+```
+
+So i've decided to make a bash script to hide this environment configs from the docker compose commands. 
+
+### 1. Create the project
+
+Use the bash script _`./dcompose`_
 
 ```bash
 # First change your directory.
 cd ./frontend
+
+# Make it executable (once).
+chmod +x ./dcompose
+
+# Create the development stack
+./compose create
 ```
 
-Classic install
+#### 2. Deploying and working
+
+Spin up a development stack and the server
 
 ```bash
-# Creates the development stack for this service
-docker compose --env-file ../.env.dev.local run --rm create-frontend
+# Start the server for development
+./dcompose up --watch 
 
-# This is equivalent
-# docker compose --env-file ../.env.dev.local run --rm npm create vite@latest . && npm install --include dev --verbose
-
+# Now the app is listening at localhost:3000
 ```
 
-With the script
+Install some dependencies
 
 ```bash
-# Make it executable (first time).
-chmod +x ./docker-compose.sh
-
-# "Deploy" will start the development server or create it and then launch it.
-./docker-compose.sh deploy
-# The app will be listening at localhost:3000
+# Try installing 'prettier'
+./dcompose npm install --save-dev prettier
 ```
 
-#### Working the service
-
-Installing dependencies
+Lint the project files
 
 ```bash
-# For example, try installing "prettier"
-docker compose --env-file ../.env.dev.local run --rm npm install --save-dev prettier
-
-# You can also use the script
-./docker-compose.sh run --rm npm install --save-dev prettier
+# A wrap for 'docker compose run --rm npm'
+./dcompose npm run lint
 ```
 
-The stack includes other tools too
+## Side notes
 
 ```bash
-# Like NODE
-docker compose --env-file ../.env.dev.local run --rm node --version
-
-# ./docker-compose.sh run --rm node --version
+./dcompose up # This command will trigger 'create' first if there is no package.json in the project
 ```
-
-#### Deploying dev stack
-
-Spin up a development / testing environment
-
-```bash
-docker compose --env-file ../.env.dev.local up --watch
-
-# Or use the script
-./docker-compose.sh deploy
-```
-
-The app will be listening at localhost:3000

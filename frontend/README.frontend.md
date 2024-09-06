@@ -15,7 +15,7 @@ To see the stack environments settings
 
 ### Notes
 
-Running Docker Compose commands for this environment it is a hassle...
+Running Docker Compose commands for this environment is a hassle...
 
 ```bash
 # Like getting the project created
@@ -43,7 +43,6 @@ chmod +x ./dcompose
 
 # Create the development stack
 ./dcompose create
-
 ```
 
 The project is created under 'web' directory

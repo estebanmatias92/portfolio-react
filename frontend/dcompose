@@ -40,7 +40,7 @@ function up() {
 
 # Target to run NPM commands inside Docker
 function npm() {
-    docker compose run --rm npm "$@"
+    docker compose run --quiet-pull --remove-orphans npm "$@"
 }
 
 # Main script logic

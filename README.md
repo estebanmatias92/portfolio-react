@@ -10,7 +10,7 @@ To read about the frontend service go [here](/frontend/README.frontend.md)
 
 #### Deploying stack
 
-Spin up a staging / prod environment
+Spin up a _staging_ / _prod_ environment
 
 ```bash
 docker compose up

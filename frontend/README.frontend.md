@@ -42,10 +42,11 @@ cd ./frontend
 chmod +x ./dcompose
 
 # Create the development stack
-./compose create
+./dcompose create
 
-# The project is created under 'web' directory
 ```
+
+The project is created under 'web' directory
 
 #### 2. Deploying and working
 
@@ -74,6 +75,5 @@ Lint the project files
 
 ## Side notes
 
-```bash
-./dcompose up # This command will trigger 'create' first if there is no package.json in the project
-```
+* _`./dcompose up`_ Will trigger _`./dcompose create`_ first if there is no package.json in the project
+

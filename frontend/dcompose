@@ -16,7 +16,7 @@ function help() {
     echo "  up                Start the development server"
     echo "  npm               Run NPM commands inside Docker"
     echo "                    Run any Docker Compose command"
-    echo ""  
+    echo ""
 }
 
 # Helper function to find package-lock.json
@@ -46,22 +46,22 @@ function npm() {
 
 # Main script logic
 case "$1" in
-    --help)
-        help
-        ;;
-    create)
-        create
-        ;;
-    up)
-        shift
-        up "$@"
-        ;;
-    npm)
-        shift
-        npm "$@"
-        ;;
-    *)
-        shift
-        docker compose "$@"
-        ;;
+--help)
+    help
+    ;;
+create)
+    create
+    ;;
+up)
+    shift
+    up "$@"
+    ;;
+npm)
+    shift
+    npm "$@"
+    ;;
+*)
+    shift
+    docker compose "$@"
+    ;;
 esac

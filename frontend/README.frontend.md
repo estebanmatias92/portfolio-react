@@ -8,8 +8,8 @@ This stack uses vite as bundler and compose watch.
 
 To see the stack environments:
 
-* Check [compose.yaml](./compose.yaml) for _base_ / _prod_ config
-* Check [compose.override.yaml](./compose.override.yaml) for _dev_ / _test_ config
+- Check [compose.yaml](./compose.yaml) for _base_ / _prod_ config
+- Check [compose.override.yaml](./compose.override.yaml) for _dev_ / _test_ config
 
 ## Instructions
 
@@ -28,7 +28,7 @@ docker compose --env-file ../.env --env-file ../.env.dev.local up
 docker compose --env-file ../.env --env-file ../.env.dev.local run --rm npm install prettier
 ```
 
-So i've decided to make a bash script to hide this environment configs from the docker compose commands. 
+So i've decided to make a bash script to hide this environment configs from the docker compose commands.
 
 ### 1. Create the project
 
@@ -53,7 +53,7 @@ Spin up a development stack and the server
 
 ```bash
 # Start the server for development
-./dcompose up --watch 
+./dcompose up --watch
 
 # Now the app is listening at localhost:3000
 ```
@@ -74,5 +74,4 @@ Lint the project files
 
 ## Side notes
 
-* _`./dcompose up`_ Will trigger _`./dcompose create`_ first if there is no package.json in the project
-
+- _`./dcompose up`_ Will trigger _`./dcompose create`_ first if there is no package.json in the project

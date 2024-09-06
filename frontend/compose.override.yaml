@@ -4,14 +4,24 @@ services:
       context: ../
       dockerfile: ./frontend/Dockerfile.dev
       args:
-        - NODE_VERSION=${NODE_VERSION}      # Gives control and is expanded in the starter service
-    init: true                              # Need to run as PID 1 to handle os signals like SIGTERM to use Watch correctly
+        - NODE_VERSION=${NODE_VERSION} # Gives control and is expanded in the starter service
+    init: true # Need to run as PID 1 to handle os signals like SIGTERM to use Watch correctly
     environment: &default-environment
       NODE_ENV: development
-    ports: 
+    ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     pull_policy: build
-    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "${FRONTEND_PORT}"]
+    command:
+      [
+        "npm",
+        "run",
+        "dev",
+        "--",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "${FRONTEND_PORT}",
+      ]
     develop:
       watch:
         - action: sync
@@ -26,18 +36,18 @@ services:
         - action: rebuild
           path: ./web/package.json
 
-  create:                                 # Bundler/Starter
-    build: 
+  create: # Bundler/Starter
+    build:
       <<: *default-build
-      target: base                        # Special Docker build stage
+      target: base # Special Docker build stage
     environment: *default-environment
-    volumes:                              # It needs access to the service root dir
+    volumes: # It needs access to the service root dir
       - ./:/app
     command: ["sh", "-c", "npx create-vite web && cd web && npm install"]
     profiles:
       - starter
 
-  npm:                                    # Wrap around npm to use it inside the container
+  npm: # Wrap around npm to use it inside the container
     build:
       <<: *default-build
       target: base

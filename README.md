@@ -1,14 +1,20 @@
-## Intro
+# Frontend Stack with Vite
 
-For now it is only for testing purposes but it is a monorepo stack at the moment, with development and production environments defined and isolated.
+Blank installation of **NodeJS** with **Vite**, this is a monorepository to work/practice with javascript frontend technologies.
 
-### About the stack
+## About the stack
 
-To read about the frontend service go [here](/frontend/README.frontend.md)
+- It is built on **Docker Compose**,
+- Has one service for now ([frontend](compose.yaml))
+- The service has **Vite** installed by default
 
-### Instructions
+## Instructions
 
-#### Deploying stack
+To work in **development** environment, move to [frontend](./frontend/) directory and follow the [README](./frontend/README.frontend.md) instructions
+
+To deploy in **production**, read below.
+
+### Deploying the app
 
 Spin up a _staging_ / _prod_ environment
 

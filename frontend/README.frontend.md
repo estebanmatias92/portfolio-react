@@ -2,7 +2,7 @@
 
 ## About the service
 
-This stack uses vite as bundler and compose watch.
+This stack uses **Vite** ([link](https://vitejs.dev/)) as bundler and **Compose Watch** ([link](https://docs.docker.com/compose/file-watch/)).
 
 ### See the yaml
 
@@ -47,7 +47,7 @@ chmod +x ./dcompose
 
 The project is created under **'./web'** directory
 
-### 2. Deploying and working
+### 2. Deploying the stack and working
 
 Spin up a development stack and the server
 

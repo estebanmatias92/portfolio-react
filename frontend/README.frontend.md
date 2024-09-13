@@ -2,14 +2,14 @@
 
 ## About the service
 
-This stack uses **Vite** ([link](https://vitejs.dev/)) as bundler and **Compose Watch** ([link](https://docs.docker.com/compose/file-watch/)).
+This stack uses **Vite** as bundler and **Compose Watch** [(*)](https://docs.docker.com/compose/file-watch/).
 
 ### See the yaml
 
 To see the stack environments:
 
-- Check [compose.yaml](./compose.yaml) for _base_ / _prod_ config
-- Check [compose.override.yaml](./compose.override.yaml) for _dev_ / _test_ config
+- Check [compose.yaml](./compose.yaml) for **_base_ / _prod_** config
+- Check [compose.override.yaml](./compose.override.yaml) for **_dev_ / _test_** config
 
 ## Instructions
 
@@ -32,7 +32,7 @@ So i've decided to make a bash script to hide this environment configs from the 
 
 ### 1. Create the project
 
-Use the bash script _`./dcompose`_
+Use the bash script **`./dcompose`**
 
 ```bash
 # First change your directory.
@@ -74,4 +74,4 @@ Lint the project files
 
 ## Side notes
 
-- _`./dcompose up`_ Will trigger _`./dcompose create`_ first if there is no package.json in the project
+- **`./dcompose up`** Will trigger **`./dcompose create`** first i**f there is no package.json** in the project

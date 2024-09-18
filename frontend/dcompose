@@ -28,7 +28,7 @@ print_help() {
 # Returns 0 if a package-lock.json file is found in the current directory
 # or one of its parents.
 has_package_lock_json() {
-    find ./ -maxdepth 3 -name package-lock.json -quit
+    find ./ -maxdepth 3 -name "package-lock.json" | grep -q "package-lock.json"
 }
 
 # Target to create the project
@@ -36,15 +36,22 @@ has_package_lock_json() {
 # This command runs the create command inside the container to create the
 # project if it doesn't exist.
 create_project() {
-    has_package_lock_json || echo "Creating the project..." && docker compose run --rm create
+    if ! has_package_lock_json; then
+        docker compose run --rm create || {
+            echo "Failed to create project. Exiting..."
+            exit 1
+        }
+    fi
 }
 
 # Target to start the development server
 #
 # This command starts the development server by running the up command
 # inside the container.
-up() {
-    create_project
+start_server() {
+    # Trap SIGINT (Ctrl+C) and exit cleanly
+    trap 'echo "Execution interrupted. Exiting..."; exit 1' SIGINT
+
     echo "Starting development server..."
     docker compose up "$@"
 }
@@ -59,30 +66,32 @@ run_cli() {
 # This function dispatches the command to the appropriate handler.
 main() {
     case "$1" in
-        --help | -h)
-            print_help
+    --help | -h)
+        print_help
+        ;;
+    up)
+        create_project
+        shift
+        start_server "$@"
+        ;;
+    run)
+
+        shift
+        case "$1" in
+        create)
+            create_project
             ;;
-        up)
-            shift
-            up "$@"
-            ;;
-        run)
-            case "$2" in
-                create)
-                    create_project
-                    ;;
-                npx | npm)
-                    run_cli "$@"
-                    ;;
-                *)
-                    shift
-                    docker compose run "$@"
-                    ;;
-            esac
+        npx | npm)
+            run_cli "$@"
             ;;
         *)
-            docker compose "$@"
+            docker compose run "$@"
             ;;
+        esac
+        ;;
+    *)
+        docker compose "$@"
+        ;;
     esac
 }
 

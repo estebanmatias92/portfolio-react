@@ -41,8 +41,8 @@ cd ./frontend
 # Make it executable (once).
 chmod +x ./dcompose
 
-# Create the development stack
-./dcompose create
+# Run the 'create' service and create whole project's dev stack
+./dcompose run create
 ```
 
 The project is created under **'./web'** directory
@@ -62,16 +62,16 @@ Install some dependencies
 
 ```bash
 # Try installing 'prettier'
-./dcompose npm install --save-dev prettier
+./dcompose run npm install --save-dev prettier
 ```
 
 Lint the project files
 
 ```bash
 # A wrap for 'docker compose run --rm npm'
-./dcompose npm run lint
+./dcompose run npm run lint
 ```
 
 ## Side notes
 
-- **`./dcompose up`** Will trigger **`./dcompose create`** first i**f there is no package.json** in the project
+- **`./dcompose up`** will trigger **`./dcompose run create`** first **if there is no package.json** in the project

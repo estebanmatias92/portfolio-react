@@ -47,13 +47,12 @@ services:
     profiles:
       - starter
 
-  npm: # Wrap around npm to use it inside the container
+  cli: # Wrap around npm to use it inside the container
     build:
       <<: *default-build
       target: base
     volumes:
       - ./web:/app
-    entrypoint: ["npm"]
-    command: ["--version"]
+    command: ["npm", "--version"]
     profiles:
       - tooling

@@ -7,60 +7,83 @@
 export COMPOSE_ENV_FILES=../.env,../.env.dev.local
 # COMPOSE_PROJECT_NAME=my_project
 
-# Default target
-function help() {
-    echo "Usage: $0 [target]"
-    echo ""
-    echo "Targets:"
-    echo "  create            Create the project"
-    echo "  up                Start the development server"
-    echo "  npm               Run NPM commands inside Docker"
-    echo "                    Run any Docker Compose command"
-    echo ""
+# Prints the help message
+print_help() {
+    cat <<-'EOF'
+	Usage: ./dcompose [command]
+
+	Commands:
+	  run [create]         Create the project
+	  up                   Start the development server
+	  run [npm | npx]      Run npm | npx commands inside Docker
+	  [COMPOSE_CMD]        Run any Docker Compose command
+
+	Options:
+	  --help | -h          Print this help message 
+	EOF
 }
 
 # Helper function to find package-lock.json
-function find_package_lock_json() {
-    find ./ -maxdepth 3 -name "package-lock.json" | grep -q "package-lock.json"
+#
+# Returns 0 if a package-lock.json file is found in the current directory
+# or one of its parents.
+has_package_lock_json() {
+    find ./ -maxdepth 3 -name package-lock.json -quit
 }
 
 # Target to create the project
-function create() {
-    if ! find_package_lock_json; then
-        echo "Creating project..."
-        docker compose run --rm create
-    fi
+#
+# This command runs the create command inside the container to create the
+# project if it doesn't exist.
+create_project() {
+    has_package_lock_json || echo "Creating the project..." && docker compose run --rm create
 }
 
 # Target to start the development server
-function up() {
-    create
+#
+# This command starts the development server by running the up command
+# inside the container.
+up() {
+    create_project
     echo "Starting development server..."
     docker compose up "$@"
 }
 
 # Target to run NPM commands inside Docker
-function npm() {
-    docker compose run --quiet-pull --rm npm "$@"
+#
+# This command runs the specified npm or npx command inside the container.
+run_cli() {
+    docker compose run --quiet-pull --rm cli "$@"
 }
 
-# Main script logic
-case "$1" in
---help)
-    help
-    ;;
-create)
-    create
-    ;;
-up)
-    shift
-    up "$@"
-    ;;
-npm)
-    shift
-    npm "$@"
-    ;;
-*)
-    docker compose "$@"
-    ;;
-esac
+# This function dispatches the command to the appropriate handler.
+main() {
+    case "$1" in
+        --help | -h)
+            print_help
+            ;;
+        up)
+            shift
+            up "$@"
+            ;;
+        run)
+            case "$2" in
+                create)
+                    create_project
+                    ;;
+                npx | npm)
+                    run_cli "$@"
+                    ;;
+                *)
+                    shift
+                    docker compose run "$@"
+                    ;;
+            esac
+            ;;
+        *)
+            docker compose "$@"
+            ;;
+    esac
+}
+
+main "$@"

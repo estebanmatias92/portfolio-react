@@ -36,18 +36,20 @@ services:
         - action: rebuild
           path: ./web/package.json
 
-  create: # Bundler/Starter
+  create: 
+    # This is a bundler | starter service to create the project the first time
     build:
       <<: *default-build
-      target: base # Special Docker build stage
+      target: base     # Common Docker build stage
     environment: *default-environment
-    volumes: # It needs access to the service root dir
+    volumes:           # It needs access to the service root dir
       - ./:/app
     command: ["sh", "-c", "npx create-vite web && cd web && npm install"]
     profiles:
       - starter
 
-  cli: # Wrap around npm to use it inside the container
+  cli: 
+    # Utility service to run any CLI command
     build:
       <<: *default-build
       target: base

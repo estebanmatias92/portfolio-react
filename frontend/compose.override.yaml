@@ -33,22 +33,24 @@ services:
             - compose*.yaml
             - .*ignore
             - .env*
+        - action: sync+restart
+          path: ./web/vite.config.js
         - action: rebuild
           path: ./web/package.json
 
-  create: 
+  create:
     # This is a bundler | starter service to create the project the first time
     build:
       <<: *default-build
-      target: base     # Common Docker build stage
+      target: base # Common Docker build stage
     environment: *default-environment
-    volumes:           # It needs access to the service root dir
+    volumes: # It needs access to the service root dir
       - ./:/app
     command: ["sh", "-c", "npx create-vite web && cd web && npm install"]
     profiles:
       - starter
 
-  cli: 
+  cli:
     # Utility service to run any CLI command
     build:
       <<: *default-build

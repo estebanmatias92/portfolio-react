@@ -1,0 +1,74 @@
+{
+    "projects": [
+    {
+      "id": 0,
+      "title": "Personal Website",
+      "description": "A personal portfolio website to showcase my projects and skills.",
+      "image": "portfolio.png",
+      "skills": ["HTML", "CSS", "JavaScript"]
+    },
+    {
+      "id": 1,
+      "title": "E-commerce Platform",
+      "description": "An online store for selling products with a user-friendly interface.",
+      "image": "ecommerce.png",
+      "skills": ["React", "Node.js", "MongoDB"]
+    },
+    {
+      "id": 2,
+      "title": "Task Manager App",
+      "description": "A mobile app to help users manage their daily tasks and to-do lists.",
+      "image": "taskmanager.png",
+      "skills": ["React Native", "Redux", "Firebase"]
+    },
+    {
+      "id": 3,
+      "title": "Blog Platform",
+      "description": "A platform for users to create and share blog posts.",
+      "image": "blog.png",
+      "skills": ["Gatsby", "GraphQL", "Contentful"]
+    },
+    {
+      "id": 4,
+      "title": "Weather App",
+      "description": "A web app that provides weather forecasts based on user location.",
+      "image": "weather.png",
+      "skills": ["Vue.js", "Axios", "OpenWeatherMap API"]
+    },
+    {
+      "id": 5,
+      "title": "Chat Application",
+      "description": "A real-time chat application with various chat rooms.",
+      "image": "chat.png",
+      "skills": ["Socket.io", "Express", "MongoDB"]
+    },
+    {
+      "id": 6,
+      "title": "Fitness Tracker",
+      "description": "An app to track workouts, diet, and progress over time.",
+      "image": "fitness.png",
+      "skills": ["React", "Redux", "Firebase"]
+    },
+    {
+      "id": 7,
+      "title": "Recipe Finder",
+      "description": "A web app to find recipes based on available ingredients.",
+      "image": "recipe.png",
+      "skills": ["Angular", "TypeScript", "Edamam API"]
+    },
+    {
+      "id": 8,
+      "title": "Travel Planner",
+      "description": "An app to plan and organize travel itineraries.",
+      "image": "travel.png",
+      "skills": ["React", "Node.js", "MongoDB"]
+    },
+    {
+      "id": 9,
+      "title": "Expense Tracker",
+      "description": "A tool to track personal expenses and manage budgets.",
+      "image": "expense.png",
+      "skills": ["Vue.js", "Vuex", "Firebase"]
+    }
+  ]
+}

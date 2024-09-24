@@ -1,0 +1,45 @@
+{
+"skills": [
+    {
+      "id": 0,
+      "name": "HTML"
+    },
+    {
+      "id": 1,
+      "name": "CSS"
+    },
+    {
+      "id": 2,
+      "name": "JavaScript"
+    },
+    {
+      "id": 3,
+      "name": "React"
+    },
+    {
+      "id": 4,
+      "name": "Node.js"
+    },
+    {
+      "id": 5,
+      "name": "MongoDB"
+    },
+    {
+      "id": 6,
+      "name": "Redux"
+    },
+    {
+      "id": 7,
+      "name": "Firebase"
+    },
+    {
+      "id": 8,
+      "name": "Vue.js"
+    },
+    {
+      "id": 9,
+      "name": "TypeScript"
+    }
+  ]
+
+}

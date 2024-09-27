@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-const ProjectItem = ({ project = {} }) => {
-  const { id, title, description, image, skills } = project;
-
+const ProjectItem = ({ project: { id, title, description, image, skills } = {} }) => {
   // eslint-disable-next-line no-unused-vars
   const [hoveredId, setHoveredId] = useState(null);
 
